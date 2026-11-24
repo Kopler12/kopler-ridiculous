@@ -21,10 +21,16 @@ PITCH = (
 
 OUTPUT_PATH = "/output/entry.txt"
 
+# The gate allows 1 to 200 characters; keep the bound next to the pitch so
+# a future edit cannot silently break it.
+MAX_CHARS = 200
+
 
 def main():
     text = PITCH.strip()
-    assert 1 <= len(text) <= 200, f"pitch is {len(text)} chars, must be 1-200"
+    assert 1 <= len(text) <= MAX_CHARS, (
+        f"pitch is {len(text)} chars, must be 1-{MAX_CHARS}"
+    )
     assert text.count(".") == 1, "pitch must be a single sentence"
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
